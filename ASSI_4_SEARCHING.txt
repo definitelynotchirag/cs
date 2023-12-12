@@ -1,0 +1,131 @@
+ASSIGNMENT 4
+
+SEARCHING
+
+
+
+def FibonacciGenerator(n):
+    if n < 1:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return FibonacciGenerator(n - 1) + FibonacciGenerator(n - 2)
+
+class search:
+    def __init__(self):
+        pass
+    
+    def linear_search(self,list,key):
+        n=len(list)
+        for i in range(n):
+            if list[i]==key:
+                return i
+        return -1    
+        
+    
+    def sentinel_search(self,list,key):
+        n=len(list)
+        i=0
+        while(i<n):
+            if list[i]==key:
+                return i
+            i+=1
+        return -1
+    
+    def binary_search(self,list,key):
+        list.sort()
+        low = 0
+        high = len(list)-1
+        while(low<=high):
+            mid = (low + high)//2
+            
+            if list[mid] == key:
+                return mid
+            
+            elif list[mid] < key:
+                low = mid+1
+                
+            else:
+                high = mid-1
+                
+        return -1
+    
+    def fib_search(self,list,x):
+        list.sort()
+        
+        m = 0 
+        while FibonacciGenerator(m) < len(list): 
+            m = m + 1 
+            
+        offset = -1
+        
+        while (FibonacciGenerator(m) > 1):
+            i = min( offset + FibonacciGenerator(m - 2) , len(list) - 1)
+
+            if (x > list[i]):
+
+                m = m - 1
+                offset = i
+
+            elif (x < list[i]):
+
+                m = m - 2
+
+            else:
+
+                return i
+        
+        
+        return -1
+        
+
+
+        
+
+l1=[]
+print("How many students attended training program")
+N=int(input())
+
+print("Enter the Roll of all students who attended training program")
+for i in range(N):
+    a= int(input())
+    l1.append(a)
+x=int(input("Enter the roll number of student to check whether he/she has attended the program or not: "))
+
+a = search()
+b=a.linear_search(l1,x)
+c=a.sentinel_search(l1,x)
+d=a.binary_search(l1,x)
+e=a.fib_search(l1,x)
+
+print("by which searching techniqe you want to check either student has atteded program or not")
+print("1- for linear search\n2- for sentinel search\n3- for binary search\n4- for fibonacci search")
+opt=int(input())
+
+if opt==1:
+    if b==-1:
+        print("student has not attended training program")
+    else:
+        print("student has attended training program")
+        
+elif opt==2:
+    if c==-1:
+        print("student has not attended training program")
+    else:
+        print("student has attended training program")
+        
+elif opt==3:
+    if d==-1:
+        print("student has not attended training program")
+    else:
+        print("student has attended training program")
+        
+elif opt==4:
+    if e==-1:
+        print("student has not attended training program")
+    else:
+        print("student has attended training program")
+
+
+    _

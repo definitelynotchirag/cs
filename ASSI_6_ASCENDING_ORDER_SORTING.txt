@@ -1,0 +1,47 @@
+ASSIGNMENT 6
+
+ASCENDING ORDER SORTING
+
+
+
+def partition(arr,low,high):
+    pivot = arr[high]
+    
+    i = low-1
+    
+    for j in range(low,high):
+        if arr[j]<= pivot:
+            
+            i = i+1
+            
+            (arr[i],arr[j])=(arr[j],arr[i])
+            
+    (arr[i+1],arr[high])= (arr[high],arr[i+1])
+    
+    return i+1
+
+
+def quick_sort(arr,low,high):
+    if low<high:
+        pi= partition(arr,low,high)
+        
+        quick_sort(arr,low,pi-1)
+        quick_sort(arr,pi+1,high)
+    
+array = []
+N= int(input("Enter the no of students"))
+
+if (N>4):
+    print("Enter their percentages")
+    for i in range(0,N):
+        a=float(input())
+        array.append(a)
+        
+    quick_sort(array,0,N-1)
+
+    print("Following are the top five scores of students:\n")
+    for i in range(0,5):
+        print(array[i]," ")
+        
+else:
+    print("please enter the number greater than 5")

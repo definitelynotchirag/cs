@@ -1,0 +1,82 @@
+ASSIGNMENT 5
+
+SORTING
+
+
+def select(size,arr):
+    for i in range(0,size-1):
+        for j in range(i+1,size):
+            if(arr[i]>arr[j]):
+                temp = arr[i]
+                arr[i] = arr[j]
+                arr[j] = temp
+
+    return arr
+
+def bubble(size,arr):
+    for i in range(size):
+        steps=0
+        for j in range(size-i-1):
+            steps+=1
+            if arr[j] > arr[j+1]:
+                temp = arr[j]
+                arr[j] = arr[j+1]
+                arr[j+1] = temp
+        print(arr)
+        print("steps required in this pass :",steps)
+    return arr
+
+def insert(size,arr):
+    steps = 0
+    for i in range(1,size):
+        temp = arr[i]
+        j=i-1
+
+        while j>=0 and arr[j]>temp:
+            steps+=1
+            arr[j+1] = arr[j]
+            j = j - 1
+        else:
+            steps+=1
+            arr[j+1] = temp
+    print("steps required in this :", steps)
+    return arr
+
+
+def shell(size,arr):
+    inter = size // 2
+    while inter>0:
+        for i in range(inter, size):
+            temp = arr[i]
+            j = i
+            while j >= inter and arr[j - inter] > temp:
+                arr[j] = arr[j - inter]
+                j -= inter
+
+            arr[j] = temp
+        inter //= 2
+    return arr
+
+
+arr=[]
+size=int(input("Enter the size of array :"))
+
+for i in range (0,size):
+    ele=int(input("Enter the Element of the array :"))
+    arr.append(ele)
+
+
+print("1.bubble sort")
+print("2.selection sort")
+print("3.insertion sort")
+print("4.shell sort")
+choice=int(input("Enter the choice :"))
+
+if(choice==1):
+    print("sorted array",bubble(size,arr))
+elif(choice==2):
+    print("sorted array", select(size, arr))
+elif (choice == 3):
+    print("sorted array", insert(size, arr))
+elif(choice==4):
+    print("sorted array", shell(size, arr))

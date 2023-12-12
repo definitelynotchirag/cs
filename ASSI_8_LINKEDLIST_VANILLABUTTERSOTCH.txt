@@ -1,0 +1,198 @@
+ASSIGNMENT 8
+
+VANILLA BUTTERSCOTCH
+
+
+#include <iostream>
+using namespace std;
+
+struct node{
+    int student;
+    struct node* next;
+};
+
+class iceCream{
+public:
+    node* head;
+
+    iceCream(){
+        head = NULL;
+    }
+
+    void store(int num){
+        node* newnode = new node;
+        newnode->student = num;
+        newnode->next = NULL;
+
+        if (!head){
+            head = newnode;
+        }
+        else{
+            node *nptr = head;
+            while (nptr->next)
+            {
+                nptr = nptr->next;
+            }
+            nptr->next = newnode;
+               
+        }
+    }
+
+    void display_list(){
+        if (!head){
+            cout<<"There is no student in list"<<endl;
+        }
+        else{
+            node* nptr = head;
+            while(nptr->next){
+                cout<<nptr->student<<" ";
+                nptr = nptr->next;
+            }
+            cout<<nptr->student<<endl;
+        }
+    }
+
+    iceCream both(iceCream &a, iceCream &b) {
+        node* nptr1 = a.head;
+        node* nptr2;
+        iceCream both;
+
+        while (nptr1) {
+            nptr2 = b.head;
+            while (nptr2) {
+                if (nptr1->student == nptr2->student) {
+                    both.store(nptr1->student);
+                    break;
+                }
+                nptr2 = nptr2->next;
+            }
+            nptr1 = nptr1->next;
+        }
+
+        return both;
+    }
+
+    iceCream either(iceCream a, iceCream b,  iceCream c){
+        node* nptr1 = a.head;
+        node* nptr2;
+        node* nptr3;
+        iceCream either;
+
+        while(nptr1){
+            int count =0 ;
+            nptr2 =b.head;
+            while(nptr2){
+                if(nptr1->student == nptr2->student){
+                    count++;
+                    break;
+                }
+                nptr2 = nptr2->next;
+            }
+
+            nptr3 =c.head;
+            while(nptr3){
+                if(nptr1->student == nptr3->student){
+                    count++;
+                    break;
+                }
+                nptr3 = nptr3->next;
+            }
+
+            if(count==0 || count ==1){
+                either.store(nptr1->student);
+            }
+            nptr1 = nptr1->next;
+        }
+
+        return either;
+    }
+
+    int not_both(iceCream a, iceCream b,  iceCream c){
+        node* nptr1 = a.head;
+        node* nptr2;
+        node* nptr3;
+        iceCream either;
+        int number=0;
+
+        while(nptr1){
+            int count =0 ;
+            nptr2 =b.head;
+            while(nptr2){
+                if(nptr1->student == nptr2->student){
+                    count++;
+                    break;
+                }
+                nptr2 = nptr2->next;
+            }
+
+            nptr3 =c.head;
+            while(nptr3){
+                if(nptr1->student == nptr3->student){
+                    count++;
+                    break;
+                }
+                nptr3 = nptr3->next;
+            }
+
+            if(count==0){
+                number++;
+            }
+            nptr1 = nptr1->next;
+        }
+
+        return number;
+        
+    }
+    
+};
+
+int main(){
+    iceCream second_yr;
+    second_yr.store(2);
+    second_yr.store(5);
+    second_yr.store(23);
+    second_yr.store(22);
+    second_yr.store(44);
+    second_yr.store(26);
+    second_yr.store(45);
+    second_yr.store(76);
+    second_yr.store(7);
+
+    iceCream vanilla;
+    vanilla.store(5);
+    vanilla.store(23);
+    vanilla.store(22);
+    vanilla.store(44);
+    // vanilla.display_list();
+
+    iceCream butterscotch;
+    butterscotch.store(23);
+    butterscotch.store(26);
+    butterscotch.store(45);
+    butterscotch.store(44);
+    butterscotch.store(76);
+
+    int choice;
+    cout<<"Enter which operation you want to compute: "<<endl;
+    cout<<"1- set of students who like both vanilla and butterscotch\n2- set of students who like either vanilla or butterscotch or ot both\n3- number of students who like neither vanilla not butterscotch"<<endl;
+    cin>>choice;
+
+    if(choice ==1){
+        iceCream both;  
+        both = second_yr.both(vanilla , butterscotch);
+        both.display_list();
+    }
+
+    if(choice ==2){
+        iceCream either;
+        either = second_yr.either(second_yr , vanilla , butterscotch);
+        either.display_list();
+    }
+
+    if(choice ==3){
+        int num = second_yr.not_both(second_yr , vanilla , butterscotch);
+        cout<<num;
+    }
+
+    return 0;
+}

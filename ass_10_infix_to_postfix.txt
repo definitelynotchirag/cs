@@ -1,0 +1,216 @@
+Assignment 10
+infix to postfix
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+template <class T>
+class stack_
+{
+public:
+    T a[20];
+    int top;
+    int max;
+
+    stack_()
+    {
+        top = -1;
+        max = 20;
+    }
+
+    bool isFull()
+    {
+        if (top == max - 1)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    bool isEmpty()
+    {
+        if (top == -1)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    void push(T val)
+    {
+        if (isFull())
+        {
+            cout << "overflow" << endl;
+        }
+        else
+        {
+            top++;
+            a[top] = val;
+        }
+    }
+
+    T pop()
+    {
+        T temp = '\0';
+        if (isEmpty())
+        {
+            cout << "underflow" << endl;
+        }
+        else
+        {
+            temp = a[top];
+            top--;
+        }
+
+        return temp;
+    }
+
+    T peep()
+    {
+        if (isEmpty())
+        {
+            return '\0';
+        }
+        else
+        {
+            return a[top];
+        }
+    }
+};
+
+int precedence(char c)
+{
+    if (c == '*' || c == '/')
+    {
+        return 2;
+    }
+    else if (c == '+' || c == '-')
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+string infix_to_post(string exp)
+{
+    stack_<char> st;
+    string ans = "";
+    for (int i = 0; i < exp.size(); i++)
+    {
+
+        char c = exp[i];
+        if ((exp[i] >= 'A' && exp[i] <= 'Z') || (exp[i] >= 'a' && exp[i] <= 'z'))
+        {
+            ans += exp[i];
+        }
+        else if (exp[i] == '(')
+        {
+            st.push(exp[i]);
+        }
+        else if (exp[i] == ')')
+        {
+            while (!st.isEmpty() && st.peep() != '(')
+            {
+                ans += st.peep();
+                st.pop();
+            }
+            st.pop();
+        }
+        else
+        {
+            while ((!st.isEmpty()) && precedence(c) <= precedence(st.peep()))
+            {
+                ans += st.peep();
+                st.pop();
+            }
+            st.push(c);
+        }
+    }
+
+    while (!st.isEmpty())
+    {
+        ans += st.peep();
+        st.pop();
+    }
+
+    return ans;
+}
+
+double evalpostfix(string s)
+{
+    stack_<double> st;
+    for (int i = 0; i < s.size(); i++)
+    {
+        char c = s[i];
+        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+        {
+            double a;
+            cout << "enter the val for" << c << " :" << endl;
+            cin >> a;
+            st.push(a);
+        }
+        else
+        {
+            double right = st.pop();
+            double left = st.pop();
+            double ans;
+            switch (c)
+            {
+            case '*':
+                ans = left * right;
+                break;
+            case '/':
+                ans = left / right;
+                break;
+            case '+':
+                ans = left + right;
+                break;
+            case '-':
+                ans = left - right;
+                break;
+            }
+            cout<<left<<" "<<right<<endl;
+            cout<<ans<<endl;
+            st.push(ans);
+        }
+
+        
+    }
+
+    double ans1 = st.peep();
+    return ans1;
+}
+
+int main()
+{   cout<<"Enter the expression"<<endl;
+    string s;
+    cin>>s;
+
+    while(true){
+        cout<<"Enter the choice"<<endl;
+        cout<<"0- Exit \n1 - infix to postfix \n2 - evaluate the postfix expression"<<endl;
+        int choice;
+        cin>>choice;
+        if(choice==0){
+            break;
+        }
+        else if(choice ==1){
+            cout << infix_to_post(s) << endl;
+        }
+        else if(choice ==2){
+            string s1 = infix_to_post(s);
+            cout<<evalpostfix(s1);
+        }
+    }
+    return 0;
+}

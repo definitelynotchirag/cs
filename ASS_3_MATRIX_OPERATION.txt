@@ -1,0 +1,141 @@
+ASSIGNMENT 3 
+
+MATRIX OPERATION
+
+
+rows=[]
+matrix1=[]
+matrix2=[]
+
+print("Enter the first matrix")
+row1 = int(input("Enter the no of rows in matrix"))
+column1 = int(input("Enter the no of columns in matrix"))
+for i in range(0,row1):
+    print("Enter the elements of ",i+1, " row")
+    for j in range(0,column1):
+        print("Enter the ",j+1 ," column element")
+        num = int(input ())
+        rows.append(num)
+
+    matrix1.append(rows)
+    rows=[]
+
+print("Enter the second matrix")
+row2 = int(input("Enter the no of rows in matrix"))
+column2 = int(input("Enter the no of columns in matrix"))
+for i in range(0,row2):
+    print("Enter the elements of ",i+1, " row")
+    for j in range(0,column2):
+        print("Enter the ",j+1 ," column element")
+        num = int(input ())
+        rows.append(num)
+
+    matrix2.append(rows)
+    rows=[]
+
+
+class Matrixopr:
+    def __init__(self) -> None:
+        pass
+
+    def addition(self,m1,m2):
+        add=[]
+        rows=[]
+
+        if len(m1) == len(m2) and len(m1[0]) == len(m2[0]):
+            for i in range(0,len(m1)):
+                mat1=matrix1[i]
+                mat2=matrix2[i]
+
+                for j in range(0,len(m1[0])):
+                    number= mat1[j] +mat2[j]
+                    rows.append(number)
+
+                add.append(rows)
+                rows=[]
+
+            print("The addition of two matrix",m1," and ",m2," is \n",add)
+
+        else:
+            print("Addition of these 2 matrix is not possible")
+
+
+    def subtraction(self, m1, m2):
+        sub = []
+        rows = []
+
+        if len(m1) == len(m2) and len(m1[0]) == len(m2[0]):
+            for i in range(0, len(m1)):
+                mat1 = matrix1[i]
+                mat2 = matrix2[i]
+
+                for j in range(0, len(m1[0])):
+                    number = mat1[j] - mat2[j]
+                    rows.append(number)
+
+                sub.append(rows)
+                rows=[]
+
+            print("The subtraction of two matrix", m1, " and ", m2, " is \n", sub)
+
+        else:
+            print("Subtraction of these 2 matrix is not possible")
+
+
+    def multiplication(self,Matrix1, Matrix2):
+        if len(Matrix1[0]) != len(Matrix1):
+            print("Matrix multiplication not possible. Inner dimensions must match.")
+            return None
+        
+        else:
+            result = []
+            for i in range(len(Matrix1)):
+                rows = []
+                for j in range(len(Matrix2[0])):
+                    element = 0
+                    for k in range(len(Matrix2)):
+                        element += Matrix1[i][k] * Matrix2[k][j]
+                    rows.append(element)
+                result.append(rows)
+            
+            print("The Mltiplication of two matrix", Matrix1, " and ", Matrix2, " is \n", result)
+        
+    def transpose(self,M1):
+        t=[]
+        for i in range(len(M1[0])):
+            rows=[]
+            for j in range(len(M1)):
+                elementc = M1[j][i]
+                rows.append(elementc)
+            t.append(rows)  
+        print("Traspose of Matrix is: ",t)
+
+a = Matrixopr()
+while(True):
+    print("THE OPERATIONS ARE AS FOLLOWS :")
+    print(" 0.EXIT \n 1.ADDITION \n 2.SUBTRACTION \n 3.MULTIPLICATION \n 4.TRANSPOSE")
+
+    cho = int(input("ENTER THE CHOICE OF OPERATION TO BE PERFORMED"))
+
+    if cho == 1:
+        print("ADDING THE TWO MATRICES WE GET :")
+        a.addition(matrix1,matrix2)
+
+    elif cho == 2:
+        print(" SUBTRACTING THE TWO MATRICES WE GET :")
+        a.subtraction(matrix1,matrix2)
+
+    elif cho == 3:
+        print("MULTIPLICATION OF TWO MATRICES :")
+        a.multiplication(matrix1,matrix2)
+
+    elif cho == 4:
+        a.transpose(matrix1)
+
+    elif cho == 0:
+        break
+
+    
+    
+    
+

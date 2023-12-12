@@ -1,0 +1,100 @@
+ASSIGNMNET 1]
+
+
+total = []
+cricket = []
+badminton = []
+football = []
+
+N = int(input("total no of students in a class\n"))
+for o in range(0,N):
+    name0 = str(input("enter name of students in the class\n"))
+    (total.append(name0))
+
+
+num1 = int(input("how many students play cricket\n"))
+for p in range(0,num1):
+    name1 = str(input("enter name of students who play cricket\n"))
+    (cricket.append(name1))
+5
+
+num2 = int(input("how many students paly badminton\n"))
+for q in range(0,num2):
+    name2 = str(input("enter the name who plays badminton\n"))
+    (badminton.append(name2))
+
+num3 = int(input("how many students palys football\n"))
+for r in range(o,num3):
+    name3 = str(input("enter name of students who palys football\n"))
+    (football.append(name3))
+
+def both_cricket_and_badminton(var1 ,var2):
+    a = []
+    for i in var1:
+        for j in var2:
+            if i==j:
+                a.append(i)
+            else:
+                continue
+    print(a)
+
+def either_one_of_cricket_or_badminton(var1 ,var2):
+    b = []
+    for i in var1:
+        if i in var2:
+            continue
+        else:
+            b.append(i)
+            continue
+
+    for j in var2:
+        if i in var1:
+            continue
+        else:
+            b.append(j)
+            continue
+    print(b)
+
+def only_football(var1, var2, var3):
+    c = []
+    for k in var3:
+        if k is var3:
+            continue
+        else:
+            if k in var2:
+                continue
+            else:
+                c.append(k)
+                continue
+    print(c)
+
+def only_cricket_and_badminton_not_football(var1, var2, var3):
+    d = []
+    for l in var1:
+        if l is var2:
+            continue
+        else:
+            if l is var3:
+                continue
+            else:
+                d.append(l)
+                continue
+            continue
+
+    for m in var3:
+        if m is var2:
+            continue
+        else:
+            d.append(m)
+            continue
+    print(d)
+
+
+print("list of students who play both cricket and badminton")
+both_cricket_and_badminton(cricket,badminton)
+print("list of students who play either cricket or badminton")
+either_one_of_cricket_or_badminton(cricket,badminton)
+print("list of students who plays only football")
+only_football(cricket,badminton,football)
+print("list of students who plays only cricket and badminton not football")
+only_cricket_and_badminton_not_football(cricket,badminton,football)

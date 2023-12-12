@@ -1,0 +1,172 @@
+// ASSIGNMENT 7
+
+// DOUBLY LINKLIST
+
+#include <iostream>
+using namespace std;
+
+struct node{
+    int seat;
+    struct node* next;
+    struct node* prev;
+};
+
+class DoubleLL{
+public:
+    node* head;
+    node* tail;
+
+    DoubleLL(){
+        head = NULL;
+        tail = NULL;
+    }
+
+    DoubleLL(node* add){
+        head = add;
+        tail = add->prev;
+    }
+
+    void store(int num){
+        node* newnode = new node;
+        newnode->seat = num;
+        newnode->prev = NULL;
+        newnode->next = NULL;
+
+        if (!head){
+            head = newnode;
+            newnode->next = newnode;
+            newnode->prev = newnode;
+            tail = newnode;
+        }
+        else{
+            node *nptr = head;
+            while (nptr!=tail)
+            {
+                nptr = nptr->next;
+            }
+            nptr->next = newnode;
+            newnode->prev = nptr;
+            newnode->next = head;
+            head->prev = newnode;
+            tail = newnode;
+               
+        }
+    }
+
+    
+};
+
+node* DCLL(){
+    DoubleLL ll;
+    for(int i=0 ;i<7 ; i++){
+        ll.store(0);
+    }return ll.head;
+}
+
+void available(node* arr[10]){
+    cout<<"Following are the avilable seats in theater now:"<<endl;
+    cout<<"row  column"<<endl;
+
+    for (int i = 0; i < 10; i++)
+    {
+        DoubleLL a(arr[i]);
+        
+        node* nptr = a.head;
+        int count=1;
+        while (nptr!=a.tail)
+        {   
+            if(nptr->seat == 0){
+                cout<<" "<<i+1<<"    "<<count<<endl;
+            }
+            count+=1;
+            nptr = nptr->next;
+        }
+        if(nptr->seat == 0){
+            cout<<" "<<i+1<<"    "<<count<<endl;
+        }
+
+        
+    }
+    
+}
+
+void booking(node* arr[10] , int row ,int column){
+    DoubleLL a(arr[row-1]);
+
+    node* nptr = a.head;
+    int count=1;
+    while(count<column){
+        nptr = nptr->next;
+        count++;
+    }
+    if(nptr->seat == 1){
+        cout<<"this seat is already booked"<<endl;
+    }
+    else{
+        nptr->seat = 1;
+    }
+
+}
+
+void cancellation(node* arr[10] , int row ,int column){
+    DoubleLL a(arr[row-1]);
+
+    node* nptr = a.head;
+    int count=1;
+    while(count<column){
+        nptr = nptr->next;
+        count++;
+    }
+    if(nptr->seat==0){
+        cout<<"this seat is already empty"<<endl;
+    }
+    else{
+        nptr->seat = 0;
+    }
+}
+
+int main(){
+    node* arr[10];
+    for(int i=0 ; i<10 ; i++){
+        arr[i]= DCLL();
+    }
+  while(1){
+      cout<<"1- to see available seats \n2- to book a seat \n3- for cancellation of booking"<<endl;
+      int choice;
+      cin>>choice;
+      if(choice==1){
+          available(arr);
+      }
+      else if(choice==2){
+          int row , column;
+          cout<<"Enter row no and column no of booking"<<endl;
+          cout<<"row : ";
+          cin>>row;
+          cout<<"column : ";
+          cin>>column;
+          if (row<=10 && column<=7){
+              booking(arr , row ,column);
+          }
+          else{
+              cout<<"There is no seat by this row and column number"<<endl;
+          }
+      }
+      else if(choice==3){
+          int row , column;
+          cout<<"Enter row no and column no of cancellation"<<endl;
+          cout<<"row : ";
+          cin>>row;
+          cout<<"column : ";
+          cin>>column;
+          if (row<=10 && column<=7){
+              cancellation(arr , row ,column);    
+          }
+          else{
+              cout<<"There is no seat by this row and column number"<<endl;
+          }
+      }
+      else if(choice==0){
+        break;
+      }
+  }
+}

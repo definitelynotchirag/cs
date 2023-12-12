@@ -1,0 +1,137 @@
+ASSIGNMENT 2
+STRING OPERATION
+
+
+str1 = "PICT is a good good college."
+list1=[]
+
+a = ""
+for i in str1:
+    if i == " ":
+        list1.append(a)
+        a = ""
+        continue
+    else :
+        a+=i
+        if i == str1[-1]:
+            list1.append(a)
+
+class stringopr():
+    def __init__(self):
+        pass
+
+    def length(self,a):
+        num = 0
+        for i in a:
+            num += 1
+        return num
+
+    def longest_word(self,a):
+        max1 = self.length(a[0])
+        temp = a[0]
+
+        for i in a:
+            if self.length(i) > max1:
+                max1 = len(i)
+                temp = i
+                continue
+            else:
+                continue
+
+        return temp
+
+
+    # print('longest word is :\n', longest_word(list1))
+
+    def frequency_of_occurrence(self,a):
+        chara = str(input('Enter the character of whose frequency of occurrence has to be calculated:\n'))
+        occ = 0
+
+        for i in a:
+            if i == chara:
+                occ = occ + 1
+            else:
+                continue
+
+        return occ
+
+    # frequency_of_occurrence(str1)
+
+    def palindrome_or_not(self,a):
+        for i in range(0,self.length(a)):
+            if a[i] == a[-(i+1)]:
+                if i == (self.length(a)-1):
+                    print("this is a palindrome")
+                    continue
+                else:
+                    continue
+            else:
+                print("this is not a palindrome")
+                break
+
+    # palindrome_or_not(str1)
+
+    def index_of_sub(self,substr,str):
+        if substr in str:
+            print("Given string is present in main string")
+
+            l1=[]
+            for i in range(0, self.length(str)) :
+                if substr[0]==str[i]:
+                    l1.append(i)
+                    continue
+                else:
+                    continue
+
+
+            count = 0
+            for i in l1:
+                if count == 0 :
+                    for j in range(0, self.length(substr)):
+                        if str[i + j] == substr[j]:
+                            if j == (self.length(substr)-1):
+                                print("index of first appearance of string is: " , i )
+                                count = 1
+                                break
+                            continue
+
+        else:
+            print("Given string is not present in main string")
+            
+    def occurence_of_each_word(self,list):
+        for i in list:
+            cnt = 0
+
+            for j in list:
+                if i==j:
+                    cnt+=1
+                    if cnt > 1:
+                        list.remove(j)
+                    continue
+            print("occurence of word " , i , " is: " , cnt)
+            
+
+
+operation = stringopr()
+while(1):
+    print("What operation you want to do?")
+    print("0-exit\n1- to find length of string\n2 - to find the longest word \n3 - to find the fequency of occurence of any character \n4 - to check whether the given string is palindrome or not\n5 - to find index of first appearance of substring\n6 - to count occurence of each word in given string\n")
+    choice = int(input())
+
+    if choice==1:
+        print("Length:", operation.length(str1))
+    elif choice==2:
+        print("Longest word:", operation.longest_word(list1))
+    elif choice==3:
+        print("Frequency of occurrence:", operation.frequency_of_occurrence(str1))
+    elif choice==4:
+        operation.palindrome_or_not(str1)
+    elif choice==5:
+        operation.index_of_sub("good", str1)
+    elif choice==6:
+        operation.occurence_of_each_word(list1)
+    elif choice==0:
+        print("exit")
+        break
+
+    print("\n")
