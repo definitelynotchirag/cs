@@ -73,31 +73,33 @@ int main()
   Queue j;
   int ch;
   j.clear();
-  cout << "Enter the choice :";
-  cin >> ch;
   while (true)
   {
+    cout<<"*****Menu*******"<<endl;
+    cout<<"1.Add Job"<<endl;
+    cout<<"2.Delete Job"<<endl;
+    cout<<"3.Display Job"<<endl;
+    cout << "Enter the choice :";
+    cin >> ch;
     if (ch == 1)
     {
       string n;
       cout << "Enter the Applicants Name :";
       cin >> n;
       j.addjob(n);
-      j.display();
+      
     }
     else if (ch == 2)
     {
       j.del();
-      j.display();
+      
     }
-    else
+    else if (ch == 3)
     {
       cout << "Final Queue :";
       j.display();
-      break;
+      
     }
-    cout << "Enter the choice :";
-    cin >> ch;
   }
     
 }

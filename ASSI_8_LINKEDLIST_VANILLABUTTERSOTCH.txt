@@ -3,196 +3,138 @@ ASSIGNMENT 8
 VANILLA BUTTERSCOTCH
 
 
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-struct node{
-    int student;
-    struct node* next;
+class Node{
+    public:
+    int data;
+    Node* next;
+
+    public:
+    Node(int d){
+        data = d;
+        next = NULL;
+    } 
 };
 
-class iceCream{
-public:
-    node* head;
+void print(Node* head){
+    Node* temp = head;
 
-    iceCream(){
-        head = NULL;
+    while(temp){
+        cout<<temp->data<<"->";
+        temp = temp->next;
     }
+}
 
-    void store(int num){
-        node* newnode = new node;
-        newnode->student = num;
-        newnode->next = NULL;
-
-        if (!head){
-            head = newnode;
-        }
-        else{
-            node *nptr = head;
-            while (nptr->next)
-            {
-                nptr = nptr->next;
-            }
-            nptr->next = newnode;
-               
-        }
-    }
-
-    void display_list(){
-        if (!head){
-            cout<<"There is no student in list"<<endl;
-        }
-        else{
-            node* nptr = head;
-            while(nptr->next){
-                cout<<nptr->student<<" ";
-                nptr = nptr->next;
-            }
-            cout<<nptr->student<<endl;
-        }
-    }
-
-    iceCream both(iceCream &a, iceCream &b) {
-        node* nptr1 = a.head;
-        node* nptr2;
-        iceCream both;
-
-        while (nptr1) {
-            nptr2 = b.head;
-            while (nptr2) {
-                if (nptr1->student == nptr2->student) {
-                    both.store(nptr1->student);
-                    break;
-                }
-                nptr2 = nptr2->next;
-            }
-            nptr1 = nptr1->next;
-        }
-
-        return both;
-    }
-
-    iceCream either(iceCream a, iceCream b,  iceCream c){
-        node* nptr1 = a.head;
-        node* nptr2;
-        node* nptr3;
-        iceCream either;
-
-        while(nptr1){
-            int count =0 ;
-            nptr2 =b.head;
-            while(nptr2){
-                if(nptr1->student == nptr2->student){
-                    count++;
-                    break;
-                }
-                nptr2 = nptr2->next;
-            }
-
-            nptr3 =c.head;
-            while(nptr3){
-                if(nptr1->student == nptr3->student){
-                    count++;
-                    break;
-                }
-                nptr3 = nptr3->next;
-            }
-
-            if(count==0 || count ==1){
-                either.store(nptr1->student);
-            }
-            nptr1 = nptr1->next;
-        }
-
-        return either;
-    }
-
-    int not_both(iceCream a, iceCream b,  iceCream c){
-        node* nptr1 = a.head;
-        node* nptr2;
-        node* nptr3;
-        iceCream either;
-        int number=0;
-
-        while(nptr1){
-            int count =0 ;
-            nptr2 =b.head;
-            while(nptr2){
-                if(nptr1->student == nptr2->student){
-                    count++;
-                    break;
-                }
-                nptr2 = nptr2->next;
-            }
-
-            nptr3 =c.head;
-            while(nptr3){
-                if(nptr1->student == nptr3->student){
-                    count++;
-                    break;
-                }
-                nptr3 = nptr3->next;
-            }
-
-            if(count==0){
-                number++;
-            }
-            nptr1 = nptr1->next;
-        }
-
-        return number;
-        
-    }
+Node* intersection(Node* head1 , Node* head2){
+    Node* temp1 = head1;
     
-};
+
+    Node* inter = new Node(-1);
+    Node* temp3 = inter;
+    while(temp1){
+        Node* temp2 = head2;//temp2 yaha initiate hoga
+        while(temp2){
+            if(temp1->data == temp2->data){
+                Node* newnode = new Node(temp1->data);
+                temp3->next = newnode;
+                temp3=temp3->next;
+            }
+            temp2 = temp2->next;
+        }
+        temp1 = temp1->next;
+    }
+
+    return inter->next;
+    
+}
+
+Node* symdiff(Node* head1, Node* head2){
+    Node* uni = new Node(-1);
+    Node* temp3 = uni;
+    Node* temp1 = head1;
+    
+
+    while(temp1){
+        Node* temp2 = head2;
+        while (temp2)
+        {
+            if(temp1->data != temp2->data){
+                temp2=temp2->next;
+            }
+            else{
+                break;
+            }
+            if(temp2 == NULL){
+                Node* newnode = new Node(temp1->data);
+                temp3->next = newnode;
+                temp3=temp3->next;
+            }
+        }
+        temp1 = temp1->next;
+    }
+
+    Node* temp2 = head2;
+
+    while(temp2){
+        Node* temp1 = head1;
+        while (temp1)
+        {
+            if(temp2->data != temp1->data){
+                temp1=temp1->next;
+            }
+            else{
+                break;
+            }
+            if(temp1 == NULL){
+                Node* newnode = new Node(temp2->data);
+                temp3->next = newnode;
+                temp3=temp3->next;
+            }
+        }
+        temp2=temp2->next;
+    }
+
+    return uni->next;
+}
 
 int main(){
-    iceCream second_yr;
-    second_yr.store(2);
-    second_yr.store(5);
-    second_yr.store(23);
-    second_yr.store(22);
-    second_yr.store(44);
-    second_yr.store(26);
-    second_yr.store(45);
-    second_yr.store(76);
-    second_yr.store(7);
-
-    iceCream vanilla;
-    vanilla.store(5);
-    vanilla.store(23);
-    vanilla.store(22);
-    vanilla.store(44);
-    // vanilla.display_list();
-
-    iceCream butterscotch;
-    butterscotch.store(23);
-    butterscotch.store(26);
-    butterscotch.store(45);
-    butterscotch.store(44);
-    butterscotch.store(76);
-
-    int choice;
-    cout<<"Enter which operation you want to compute: "<<endl;
-    cout<<"1- set of students who like both vanilla and butterscotch\n2- set of students who like either vanilla or butterscotch or ot both\n3- number of students who like neither vanilla not butterscotch"<<endl;
-    cin>>choice;
-
-    if(choice ==1){
-        iceCream both;  
-        both = second_yr.both(vanilla , butterscotch);
-        both.display_list();
+    Node* head1 = new Node(-1);
+    int choice = 1;
+    Node *temp1 = head1;
+    while(choice == 1){
+        int d;
+        cout<<"Enter the Data :";cin>>d;
+        Node * newnode = new Node(d);
+        temp1->next=newnode;
+        temp1 = temp1->next;
+        cout<<"Enter the choice :";cin>>choice;
     }
-
-    if(choice ==2){
-        iceCream either;
-        either = second_yr.either(second_yr , vanilla , butterscotch);
-        either.display_list();
+    head1 = head1->next;
+    cout<<"Vanilla :";print(head1);
+    cout<<endl;
+    
+    Node* head2 = new Node(-1);
+    bool c = 1;
+    Node *temp2 = head2;
+    while(c){
+        int d;
+        cout<<"Enter the Data";cin>>d;
+        Node* newnode = new Node(d);
+        temp2->next=newnode;
+        temp2 = temp2->next;
+        cout<<"Enter the choice :";cin>>c;
     }
+    head2 = head2->next;
+    cout<<"Butterscoch :";print(head2);
+    cout<<endl;
 
-    if(choice ==3){
-        int num = second_yr.not_both(second_yr , vanilla , butterscotch);
-        cout<<num;
-    }
+    Node* Ans1 = intersection(head1,head2);
+    cout<<"Students Eating both :";print(Ans1);
+    cout<<endl;
 
-    return 0;
+    Node* Ans2 = symdiff(head1,head2);
+    cout<<"Students does not Eating both :";
+print(Ans2);
 }

@@ -1,92 +1,124 @@
-ASSIGNMENT 9 
+ASSIGNMENT 9
 
-STACK - PARANTHESIZED OR NOT
-
-
+STACK WELL PARENTHESISED
 
 #include <iostream>
 #include <string>
 using namespace std;
 
-class stack {
+class stack
+{
     const static int MAX = 100;
     char s[MAX];
     int top;
 
 public:
-    stack() {
+    stack()
+    {
         top = -1;
     }
 
-    bool isEmpty() {
+    bool isEmpty()
+    {
         return (top == -1);
     }
 
-    bool isFull() {
+    bool isFull()
+    {
         return (top == MAX - 1);
     }
 
-    void push(char ch) {
-        if (!isFull()) {
+    void push(char ch)
+    {
+        if (!isFull())
+        {
             s[++top] = ch;
         }
     }
 
-    char pop() {
-        if (!isEmpty()) {
+    char pop()
+    {
+        if (!isEmpty())
+        {
             return s[top--];
         }
         return '\0';
     }
 
-    bool checkParenthesis(const string& exp) {
+    bool checkParenthesis(const string &exp)
+    {
         int size = exp.length();
         stack s;
 
-        for (int i = 0; i < size; i++) {
-            if (exp[i] == '(' || exp[i] == '[' || exp[i] == '{') {
+        for (int i = 0; i < size; i++)
+        {
+            if (exp[i] == '(' || exp[i] == '[' || exp[i] == '{')
+            {
                 s.push(exp[i]);
             }
-            else if (exp[i] == ')' || exp[i] == ']' || exp[i] == '}') {
-                if (s.isEmpty()) {
+            else if (exp[i] == ')' || exp[i] == ']' || exp[i] == '}')
+            {
+                if (s.isEmpty())
+                {
                     return false;
                 }
 
                 char x = s.pop();
 
-                switch (exp[i]) {
-                    case ')':
-                        if (x != '(')
-                            return false;
-                        break;
-                    case ']':
-                        if (x != '[')
-                            return false;
-                        break;
-                    case '}':
-                        if (x != '{')
-                            return false;
-                        break;
+                switch (exp[i])
+                {
+                case ')':
+                    if (x != '(')
+                        return false;
+                    break;
+                case ']':
+                    if (x != '[')
+                        return false;
+                    break;
+                case '}':
+                    if (x != '{')
+                        return false;
+                    break;
                 }
             }
         }
-        return s.isEmpty(); 
+        return s.isEmpty();
     }
 };
 
-int main(){
-    string a;
-    cout << "Enter the expression: ";
-    cin >> a;
+int main()
+{
+    while (true)
+    {
+        string a;
+        cout << "Enter the expression: ";
+        cin >> a;
 
-    stack b;
-    bool para = b.checkParenthesis(a);
-    cout << "This expression is ";
+        stack b;
+        bool para = b.checkParenthesis(a);
+        cout << "This expression is ";
 
-    if (para) {
-        cout << "well parenthesized" << endl;
-    } else {
-        cout << "not well parenthesized" << endl;
+        if (para)
+        {
+            cout << "well parenthesized" << endl;
+        }
+        else
+        {
+            cout << "not well parenthesized" << endl;
+        }
+
+        cout << "do you want to continue" << endl;
+        int choice;
+        cout << "0-exit\n 1-continue" << endl;
+        cin >> choice;
+        if (choice)
+        {
+            continue;
+        }
+        else
+        {
+            break;
+        }
     }
 
     return 0;

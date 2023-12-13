@@ -1,5 +1,8 @@
-Assignment 10
-infix to postfix
+// ASSIGNMENT 10
+
+
+// INFIX TO POSTFIX
+
 
 #include <iostream>
 #include <bits/stdc++.h>
@@ -179,8 +182,7 @@ double evalpostfix(string s)
                 ans = left - right;
                 break;
             }
-            cout<<left<<" "<<right<<endl;
-            cout<<ans<<endl;
+            
             st.push(ans);
         }
 
@@ -209,7 +211,7 @@ int main()
         }
         else if(choice ==2){
             string s1 = infix_to_post(s);
-            cout<<evalpostfix(s1);
+            cout<<evalpostfix(s1)<<endl;
         }
     }
     return 0;
